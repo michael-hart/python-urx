@@ -123,3 +123,35 @@ if __name__ == '__main__':
 	print "true"
 	sys.exit()
 ```
+
+#RG2 Gripper
+
+urx can also control an RG2 gripper attached to the UR robot. This class was primarily developed by [David Hinwood](https://github.com/u3099811)
+
+-Gripper will contiously try to close(stopped at the set force value in newtons) if set to a width smaller than the current width while grasping an object. This is part of the design and not 		an error. The same functionality is embedded in the default program
+
+-You require an ethernet connection to the robot
+
+##Example use:
+```python
+import sys
+import urx
+import time
+#import file
+from urx import RG2Gripper as GripClass
+rob = urx.Robot("10.0.0.157")
+#instantiate object
+gripperInstance = GripClass.RG2(rob)
+#basic delay for script(to complete action, RG2 approximatly takes 1.3 seconds to close from completely open)
+time.sleep(2)
+#set distance between pincers apart, in this case closing
+gripperInstance.setWidth(0)
+time.sleep(2)
+#open the gripper completly
+gripperInstance.setWidth(110)
+time.sleep(2)
+#returns the current width of the robot
+gripperInstance.getWidth()
+```
+	
+
